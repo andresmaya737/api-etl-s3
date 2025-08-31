@@ -1,12 +1,10 @@
-import boto3, json, gzip, io, logging
-from datetime import datetime, timezone
-from typing import Any, Dict, List, Union
-
 import awswrangler as wr
-import os
-
+import boto3
+import logging
+from datetime import datetime, timezone
 
 log = logging.getLogger(__name__)
+
 
 class S3Storage:
     def __init__(self, bucket: str, prefix: str = "", region: str | None = None):
@@ -15,12 +13,14 @@ class S3Storage:
 
 
     def put_parquet(self, df) -> str:
-    
-        now = datetime.utcnow()
-        key = f"users/users={now:%Y-%m-%d}/run_ts={now:%H%M%S}.parquet"
+        try:
+            now = datetime.utcnow()
+            key = f"users/users={now:%Y-%m-%d}/run_ts={now:%H%M%S}.parquet"
 
-        s3_path = f"s3://{self.bucket}/{key}"
-        wr.s3.to_parquet(df=df, path=s3_path, index=False)  # partition_cols opcional
-        log.info("Uploaded Parquet to s3://%s/%s", self.bucket, key)
-        return key
-    
+            s3_path = f"s3://{self.bucket}/{key}"
+            wr.s3.to_parquet(df=df, path=s3_path, index=False)
+            log.info("Uploaded Parquet to s3://%s/%s", self.bucket, key)
+            return key
+        except Exception as exception:
+            log.error(f"Error inesperado al escribir Parquet en S3. {exception}")
+            raise 

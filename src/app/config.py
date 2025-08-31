@@ -1,4 +1,3 @@
-# src/app/config.py
 from pydantic import BaseSettings
 
 class Settings(BaseSettings):
@@ -10,6 +9,4 @@ class Settings(BaseSettings):
     http_timeout: int = 15
     log_level: str = "INFO"
 
-
 settings = Settings()
-

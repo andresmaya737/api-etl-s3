@@ -1,4 +1,3 @@
-# tests/test_s3_storage.py
 import json
 import io
 import types
@@ -12,7 +11,6 @@ def test_put_parquet_df_with_wrangler_mock(s3_mock, monkeypatch):
     """Simula awswrangler.s3.to_parquet sin instalar awswrangler/pandas."""
     store = S3Storage(bucket="test-bucket")
 
-    # Creamos un df "fake" (no importa el tipo, lo pasamos tal cual al mock)
     fake_df = object()
     captured = {}
 
@@ -25,15 +23,14 @@ def test_put_parquet_df_with_wrangler_mock(s3_mock, monkeypatch):
                 captured["index"] = index
                 captured["kwargs"] = kwargs
 
-    # Inyectar awswrangler falso
-    monkeypatch.setitem(globals(), "awswrangler", FakeWr)  # por si acaso
-    monkeypatch.setenv("PYTHONPATH", ".")  # noop
-    # Monkeypatch dentro del método import
+    monkeypatch.setitem(globals(), "awswrangler", FakeWr) 
+    monkeypatch.setenv("PYTHONPATH", ".")  
+
     def fake_import_wr(*args, **kwargs):
         return FakeWr
     monkeypatch.setitem(__import__.__globals__, "awswrangler", FakeWr)
 
-    # Monkeypatch del import dentro del método (más robusto)
+
     def _fake_import(name, *args, **kwargs):
         if name == "awswrangler":
             return FakeWr

@@ -1,4 +1,3 @@
-# tests/test_pipeline_run_wrangler.py
 import json
 import types
 import pytest
@@ -30,7 +29,6 @@ def sample_randomuser():
     }
 
 def test_run_wrangler_path(monkeypatch, sample_randomuser):
-    # Mock requests.get
     def fake_get(url, timeout):
         assert "randomuser.me/api/?results=1" in url
         return DummyResp(sample_randomuser)
@@ -56,7 +54,6 @@ def test_run_wrangler_path(monkeypatch, sample_randomuser):
     class FakeWr:
         s3 = FakeWrS3
 
-    # parchea import de pandas y awswrangler dentro de run()
     def _fake_import(name, *args, **kwargs):
         if name == "pandas":
             return FakePandas
@@ -66,16 +63,13 @@ def test_run_wrangler_path(monkeypatch, sample_randomuser):
 
     monkeypatch.setattr("builtins.__import__", _fake_import)
 
-    # Fecha fija
-    with freeze_time("2025-01-02 03:04:05"):
+    with freeze_time("2025-08-29 03:04:05"):
         res = run()
 
     assert res["status"] == "ok"
     assert res["bucket"] == "test-bucket"
     assert res["rows"] == 1
-    # El path S3 debe incluir la fecha/hora de freeze_time
     assert "random_user=2025-01-02" in res["s3_key"]
 
-    # Validar que awswrangler recibió un "df" con json_normalize y path s3://...
     assert calls["df"]["_kind"] == "df"
     assert calls["path"].startswith("s3://test-bucket/")

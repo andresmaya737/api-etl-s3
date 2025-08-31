@@ -1,5 +1,5 @@
 import requests
-import logging, requests, time
+import logging
 from typing import Any, Dict, Optional
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -18,11 +18,14 @@ def _session() -> requests.Session:
 
     return s
 
+
 class ApiClient:
+    
     def __init__(self, base_url: str):
         self.base = base_url
         self.sess = _session()
         self.timeout = settings.http_timeout
+
 
     def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         url = f"{self.base}/{path.lstrip('/')}"

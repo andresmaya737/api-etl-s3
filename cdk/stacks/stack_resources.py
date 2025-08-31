@@ -34,8 +34,7 @@ class MPSApiToS3StackResources(Stack):
             removal_policy=RemovalPolicy.RETAIN,
             bucket_name="s3-mps-group-user-data-athena-results"  # nombre único global
         )
-
-        
+  
         #Glue Database, Crawler and Athena Workgroup
         # 1) Glue Database
         glue_db = glue.CfnDatabase(
@@ -106,9 +105,7 @@ class MPSApiToS3StackResources(Stack):
             }
             }''',
         )
-
         crawler.add_dependency(glue_db)
-
 
         # 3) Athena Workgroup
         athena.CfnWorkGroup(

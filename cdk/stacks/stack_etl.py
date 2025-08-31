@@ -14,7 +14,6 @@ class MPSApiToS3StackETL(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs):
         super().__init__(scope, construct_id, **kwargs)
 
-
         # the root of the cdk directory
         cdk_dir   = Path(__file__).resolve().parent
         repo_root = cdk_dir.parent.parent

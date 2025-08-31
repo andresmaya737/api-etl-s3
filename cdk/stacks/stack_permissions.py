@@ -15,8 +15,7 @@ class MPSApiToS3StackPermissions(Stack):
         principal_arn = f"arn:aws:iam::{account_id}:role/MPS-Group-ETL-Stack-Resourc-GlueCrawlerRole"
         db_name = "glue_database_users_mps"
         s3_location_arn = f"arn:aws:s3:::{bucket_name}/{prefix}"
-
-        
+      
         lf_resource = lf.CfnResource(
             self, "LfDataLocation",
             resource_arn=s3_location_arn,
@@ -69,7 +68,3 @@ class MPSApiToS3StackPermissions(Stack):
             ),
             permissions=["SELECT"]
         )
-
-        
-     
-        
