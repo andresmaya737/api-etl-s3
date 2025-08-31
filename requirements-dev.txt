@@ -1,0 +1,5 @@
+pytest==8.3.2
+pytest-mock==3.14.0
+requests-mock==1.12.1
+moto[s3]==5.0.17
+freezegun==1.5.1
