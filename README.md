@@ -75,3 +75,17 @@ lambda/app_lambda/     # Lambda handler + runtime requirements
 cdk/                   # Infrastructure with AWS CDK (stacks.py, stacks_glue.py, app.py)
 tests/                 # Unit tests with pytest + moto
 requirements-dev.txt   # Development dependencies (tests, mocks, linters)
+```
+
+## 📂 DataZone Domain Deploy
+
+Using AWS Console, we deploy a domain of Amazon DataZone to expose assets catalog connected to glue database that we deployed and the descriptions of the asset and schema were generated for the DataZone AI.
+
+<img width="1474" height="758" alt="Captura de pantalla 2025-08-31 a la(s) 1 04 37 a m" src="https://github.com/user-attachments/assets/76d1aa03-8546-4241-9d25-03de17c3eee1" />
+
+---
+---
+
+<img width="1483" height="779" alt="Captura de pantalla 2025-08-31 a la(s) 1 05 14 a m" src="https://github.com/user-attachments/assets/adee2553-fe67-4673-9256-4318923b4957" />
+
+
