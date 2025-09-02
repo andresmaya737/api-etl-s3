@@ -1,6 +1,4 @@
-# 📊 API Ingestion → S3 → Glue + Athena with AWS CDK
 
-This project implements a **serverless architecture** in AWS to fetch data from the public API [`randomuser.me`](https://randomuser.me), store it in **Amazon S3** in **Parquet** format, catalog it with **AWS Glue**, and query it with **Amazon Athena**.
 
 # 📊 API Ingestion → S3 → Glue + Athena with AWS CDK
 
